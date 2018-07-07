@@ -1,0 +1,1 @@
+tsc & xcopy /Y /E build dist

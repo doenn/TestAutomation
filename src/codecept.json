@@ -1,0 +1,29 @@
+{
+	"output": "./output",
+	"helpers": {
+		"WebDriverIO": {
+		"url": "http://uat.omedym.io/",
+		"browser": "chrome"    
+		}
+	},
+	"include": {
+  		"I": "./steps_file.js",
+		"loginPage": "./pages/LoginPage.js",
+		"dashboardPage": "./pages/DashboardPage.js",
+		"companyProfilePage": "./pages/CompanyProfilePage.js",
+		"tenant": "./resources/User.js"
+	},
+	"mocha": {},
+	"bootstrap": false,
+	"teardown": null,
+	"hooks": [],
+	"gherkin": {
+		"features": "./features/*.feature",
+		"steps": [
+			"./step_definitions/steps.js"
+		]
+},
+  "tests": "./*_test.js",
+  "timeout": 10000,
+  "name": "TestAutomation"
+}
