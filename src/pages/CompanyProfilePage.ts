@@ -12,11 +12,13 @@ export = {
 		},
 	},
 	companyProfileHeading: "//h3[text()[contains(.,'Company Profile')]]",
-	companyLogoMissing: "//section//div/img[@src[contains(.,'no_image_available.png')]]",
+	companyLogoMissingElement: "//section//div/img[@src[contains(.,'no_image_available.png')]]",
 	blankDescriptionField: "//div/textarea[not(text())]",
-	verifyCompanyLogoNotPresent(){
+	async isCompanyLogoMissing(){
 		I.waitForElement(this.companyProfileHeading,16);
-		I.seeElement(this.companyLogoMissing);
+		let companyLogoMissing : boolean = await browser.isExisting(this.companyLogoMissingElement);
+		return companyLogoMissing;
+
 	},
 	verifyDescriptionFieldBlank(){
 		I.waitForElement(this.companyProfileHeading,16);

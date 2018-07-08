@@ -43,11 +43,13 @@ Given('the User has an incomplete Company Profile', () => {
 
 
 
-Then('the User sees a missing logo', () => {
+Then('the User sees a missing logo', async () => {
 
 
   	//const companyProfilePage = require('../pages/CompanyProfilePage.js');
-	companyProfilePage.verifyCompanyLogoNotPresent();
+
+	let companyLogoMissing:boolean = await companyProfilePage.isCompanyLogoMissing();
+	console.log(companyLogoMissing);
 });
 
 

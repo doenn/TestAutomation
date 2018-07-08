@@ -39,10 +39,11 @@ Given('the Tenant visits their Company Profile', () => {
 });
 Given('the User has an incomplete Company Profile', () => {
 });
-Then('the User sees a missing logo', () => {
+Then('the User sees a missing logo', () => __awaiter(this, void 0, void 0, function* () {
     //const companyProfilePage = require('../pages/CompanyProfilePage.js');
-    companyProfilePage.verifyCompanyLogoNotPresent();
-});
+    let companyLogoMissing = yield companyProfilePage.isCompanyLogoMissing();
+    console.log(companyLogoMissing);
+}));
 Then('the User sees missing Company information', () => __awaiter(this, void 0, void 0, function* () {
     //const companyProfilePage = require('../pages/CompanyProfilePage.js');
     companyProfilePage.verifyDescriptionFieldBlank();
