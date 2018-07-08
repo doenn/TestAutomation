@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
 var I = actor();
 module.exports = {
     topNavBar: {
@@ -24,9 +25,15 @@ module.exports = {
     blankDescriptionField: "//div/textarea[not(text())]",
     isCompanyLogoMissing() {
         return __awaiter(this, void 0, void 0, function* () {
+            let browser = new BrowserHelper_js_1.BrowserHelper();
             I.waitForElement(this.companyProfileHeading, 16);
-            let companyLogoMissing = yield browser.isExisting(this.companyLogoMissingElement);
-            return companyLogoMissing;
+            let companyLogoPresent = yield browser.findExisting(this.companyLogoMissingElement);
+            if (companyLogoPresent) {
+                return false; // Logo is present
+            }
+            else {
+                return true; // Logo is missing
+            }
         });
     },
     verifyDescriptionFieldBlank() {

@@ -13,6 +13,7 @@ const I = actor();
 const loginPage = require("../pages/LoginPage.js");
 const dashboardPage = require("../pages/DashboardPage.js");
 const companyProfilePage = require("../pages/CompanyProfilePage.js");
+const assert = require("assert");
 Given('the User has a completed Company Profile', () => {
     // From "features\ViewEditCompanyProfile.feature" {"line":4,"column":3}
     //throw new Error('Not implemented yet');
@@ -42,7 +43,7 @@ Given('the User has an incomplete Company Profile', () => {
 Then('the User sees a missing logo', () => __awaiter(this, void 0, void 0, function* () {
     //const companyProfilePage = require('../pages/CompanyProfilePage.js');
     let companyLogoMissing = yield companyProfilePage.isCompanyLogoMissing();
-    console.log(companyLogoMissing);
+    assert(companyLogoMissing);
 }));
 Then('the User sees missing Company information', () => __awaiter(this, void 0, void 0, function* () {
     //const companyProfilePage = require('../pages/CompanyProfilePage.js');

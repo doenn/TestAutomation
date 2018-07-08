@@ -1,6 +1,9 @@
 /// <reference path="../steps.d.ts" />
 
+import {BrowserHelper} from "../helpers/BrowserHelper.js";
 var I = actor();
+
+
 export = {
 	topNavBar: {
 		dashboardLink: "//a[text()[contains(.,'DASHBOARD')]]",
@@ -15,10 +18,15 @@ export = {
 	companyLogoMissingElement: "//section//div/img[@src[contains(.,'no_image_available.png')]]",
 	blankDescriptionField: "//div/textarea[not(text())]",
 	async isCompanyLogoMissing(){
+		let browser = new BrowserHelper();
 		I.waitForElement(this.companyProfileHeading,16);
-		let companyLogoMissing : boolean = await browser.isExisting(this.companyLogoMissingElement);
-		return companyLogoMissing;
-
+		let companyLogoPresent : boolean = await browser.findExisting(this.companyLogoMissingElement);
+		if (companyLogoPresent){
+			return false;		// Logo is present
+		}
+		else{
+			return true;		// Logo is missing
+		}
 	},
 	verifyDescriptionFieldBlank(){
 		I.waitForElement(this.companyProfileHeading,16);

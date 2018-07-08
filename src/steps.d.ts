@@ -118,6 +118,7 @@ declare namespace CodeceptJS {
     seeTitleEquals(text: string) : void,
     dontSeeInTitle(text: string) : void,
     grabTitle() : Promise<any>,
+    findExisting(selector: string): Promise<boolean>,
     see(text: string, context?: ILocator) : void,
     see(text: string, context?: string) : void,
     seeTextEquals(text: string, context?: ILocator) : void,

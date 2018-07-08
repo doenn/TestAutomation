@@ -1,6 +1,7 @@
 /// <reference path="../steps.d.ts" />
 
 const I = actor();
+import {BrowserHelper} from "../helpers/BrowserHelper.js";
 import loginPage = require('../pages/LoginPage.js');
 import dashboardPage = require('../pages/DashboardPage.js');
 import companyProfilePage = require('../pages/CompanyProfilePage.js');
@@ -28,7 +29,9 @@ Then('the User sees their Company information', () => {
 
 Given('the Tenant is logged in', () => {
 	//const loginPage = require('../pages/LoginPage.js');
+	
 	loginPage.login();
+
 });
 
 Given('the Tenant visits their Company Profile', () => {
@@ -45,11 +48,8 @@ Given('the User has an incomplete Company Profile', () => {
 
 Then('the User sees a missing logo', async () => {
 
-
-  	//const companyProfilePage = require('../pages/CompanyProfilePage.js');
-
 	let companyLogoMissing:boolean = await companyProfilePage.isCompanyLogoMissing();
-	console.log(companyLogoMissing);
+	assert(companyLogoMissing);
 });
 
 
