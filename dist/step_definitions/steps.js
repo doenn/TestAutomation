@@ -15,8 +15,7 @@ const dashboardPage = require("../pages/DashboardPage.js");
 const companyProfilePage = require("../pages/CompanyProfilePage.js");
 const assert = require("assert");
 Given('the User has a completed Company Profile', () => {
-    // From "features\ViewEditCompanyProfile.feature" {"line":4,"column":3}
-    //throw new Error('Not implemented yet');
+    // Tenant with completed Profile
 });
 When('the Tenant visits their Company Profile', () => {
     //const dashboardPage = require('../pages/DashboardPage.js');
@@ -39,12 +38,14 @@ Given('the Tenant visits their Company Profile', () => {
     companyProfilePage.loaded();
 });
 Given('the User has an incomplete Company Profile', () => {
+    // Tenant with incomplete Profile
 });
 Then('the User sees a missing logo', () => __awaiter(this, void 0, void 0, function* () {
     let companyLogoMissing = yield companyProfilePage.isCompanyLogoMissing();
     assert(companyLogoMissing);
 }));
 Then('the User sees missing Company information', () => __awaiter(this, void 0, void 0, function* () {
-    //const companyProfilePage = require('../pages/CompanyProfilePage.js');
-    companyProfilePage.verifyDescriptionFieldBlank();
+    I.waitForElement(companyProfilePage.companyProfileHeading, 16);
+    I.seeElement(companyProfilePage.blankDescriptionField);
+    //companyProfilePage.verifyDescriptionFieldBlank();
 }));

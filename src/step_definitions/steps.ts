@@ -8,8 +8,7 @@ import companyProfilePage = require('../pages/CompanyProfilePage.js');
 import assert = require('assert');
 
 Given('the User has a completed Company Profile', () => {
-  // From "features\ViewEditCompanyProfile.feature" {"line":4,"column":3}
-  //throw new Error('Not implemented yet');
+	// Tenant with completed Profile
 });
 
 When('the Tenant visits their Company Profile', () => {
@@ -38,14 +37,13 @@ Given('the Tenant visits their Company Profile', () => {
 });
 
 Given('the User has an incomplete Company Profile', () => {
-
+	// Tenant with incomplete Profile
 
 });
 
 
 
 Then('the User sees a missing logo', async () => {
-
 	let companyLogoMissing:boolean = await companyProfilePage.isCompanyLogoMissing();
 	assert(companyLogoMissing);
 });
@@ -53,7 +51,6 @@ Then('the User sees a missing logo', async () => {
 
 
 Then('the User sees missing Company information', async() => {
-
-	
-	companyProfilePage.verifyDescriptionFieldBlank();
+	I.waitForElement(companyProfilePage.companyProfileHeading,16);
+	I.seeElement(companyProfilePage.blankDescriptionField);
 });

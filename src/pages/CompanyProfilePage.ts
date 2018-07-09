@@ -30,9 +30,5 @@ export = {
 		else{
 			return true;		// Logo is missing
 		}
-	},
-	verifyDescriptionFieldBlank(){
-		I.waitForElement(this.companyProfileHeading,16);
-		I.seeElement(this.blankDescriptionField);
 	}
 }
