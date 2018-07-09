@@ -15,7 +15,7 @@
     "dashboardPage": "./pages/DashboardPage.js",
     "companyProfilePage": "./pages/CompanyProfilePage.js",
     "tenant": "./resources/User.js",
-	"BrowserHelper": "./helpers/BrowserHelper.js"
+    "BrowserHelper": "./helpers/BrowserHelper.js"
   },
   "mocha": {},
   "bootstrap": false,

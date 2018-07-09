@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
 var I = actor();
+let assert = require('assert');
 module.exports = {
     topNavBar: {
         dashboardLink: "//a[text()[contains(.,'DASHBOARD')]]",
@@ -21,26 +21,50 @@ module.exports = {
         },
     },
     companyProfileHeading: "//h3[text()[contains(.,'Company Profile')]]",
+    companyLogoPresentElement: "//section//div/img[@src[contains(.,'company_logo')]]",
     companyLogoMissingElement: "//section//div/img[@src[contains(.,'no_image_available.png')]]",
+    companyLogoUpload: "//div//input[@id='company-logo-upload']",
+    companyNameField: "//input[@id='company_name']",
+    companyAliasField: "//input[@id='company_alias']",
     blankDescriptionField: "//div/textarea[not(text())]",
+    descriptionField: "//div/textarea",
+    updateButton: "//button[@type='submit']",
+    profileUpdatedMsg: "//h2[text()[contains(.,'Company details updated successfully')]]",
+    profileUpdatedOKButton: "//button[text()[contains(.,'OK')]]",
     loaded() {
         I.waitForElement(this.companyProfileHeading, 20);
     },
-    isCompanyLogoMissing() {
+    isCompanyNameFilled() {
         return __awaiter(this, void 0, void 0, function* () {
-            let browser = new BrowserHelper_js_1.BrowserHelper();
-            I.waitForElement(this.companyProfileHeading, 16);
-            let companyLogoPresent = yield browser.findExisting(this.companyLogoMissingElement);
-            if (companyLogoPresent) {
-                return false; // Logo is present
+            let companyNameFieldText = yield I.grabValueFrom(this.companyNameField);
+            if (companyNameFieldText[0].length > 0) {
+                assert(true);
             }
             else {
-                return true; // Logo is missing
+                assert(false);
             }
         });
     },
-    verifyDescriptionFieldBlank() {
-        I.waitForElement(this.companyProfileHeading, 16);
-        I.seeElement(this.blankDescriptionField);
-    }
+    isCompanyDescriptionFilled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let descriptionFieldText = yield I.grabTextFrom(this.descriptionField);
+            if (descriptionFieldText[0].length > 0) {
+                assert(true);
+            }
+            else {
+                assert(false);
+            }
+        });
+    },
+    isCompanyAliasFilled() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let companyAliasFieldText = yield I.grabValueFrom(this.companyAliasField);
+            if (companyAliasFieldText[0].length > 0) {
+                assert(true);
+            }
+            else {
+                assert(false);
+            }
+        });
+    },
 };

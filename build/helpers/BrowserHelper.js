@@ -17,7 +17,10 @@ class BrowserHelper extends Helper {
     findExisting(elementSelector) {
         return __awaiter(this, void 0, void 0, function* () {
             let browser = this.helpers['WebDriverIO'].browser;
-            let elementPresent = yield browser.isExisting(elementSelector);
+            let elementPresent = yield browser.isExisting(elementSelector)
+                .catch(function () {
+                return false;
+            });
             return elementPresent;
         });
     }
@@ -41,6 +44,15 @@ class BrowserHelper extends Helper {
     clickAfter(elementSelector) {
         let browser = this.helpers['WebDriverIO'].browser;
         return browser.click(elementSelector);
+    }
+    // Refresh Browser with chaining
+    refreshAfter() {
+        let browser = this.helpers['WebDriverIO'].browser;
+        return browser.refresh()
+            .catch(function (error) {
+            console.log(error);
+            return false;
+        });
     }
 }
 exports.BrowserHelper = BrowserHelper;

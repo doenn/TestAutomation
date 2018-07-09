@@ -11,7 +11,10 @@ export class BrowserHelper extends Helper {
 	}
  	async findExisting(elementSelector : string){
 		let browser = this.helpers['WebDriverIO'].browser;
-		let elementPresent : boolean = await browser.isExisting(elementSelector);
+		let elementPresent : boolean = await browser.isExisting(elementSelector)
+			.catch(function(){
+				return false;
+			});
 		return elementPresent;
 	}
 
@@ -36,6 +39,17 @@ export class BrowserHelper extends Helper {
 		let browser = this.helpers['WebDriverIO'].browser;
 		return browser.click(elementSelector);
 	}
+	
+	// Refresh Browser with chaining
+	refreshAfter() : Promise<boolean>{
+		let browser = this.helpers['WebDriverIO'].browser;
+		return browser.refresh()
+			.catch(function(error){
+				console.log(error);
+				return false;
+			});
+	}
+	
 
 
 
