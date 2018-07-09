@@ -1,6 +1,8 @@
 "use strict";
 /// <reference path="../steps.d.ts" />
+const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
 var I = actor();
+const assert = require("assert");
 module.exports = {
     topNavBar: {
         dashboardLink: "//a[text()[contains(.,'DASHBOARD')]]",
@@ -11,9 +13,15 @@ module.exports = {
             companyProfileLink: "//a[text()[contains(.,'COMPANY PROFILE')]]"
         },
     },
-    visitCompanyPofile() {
-        I.waitForElement(this.topNavBar.companySettingsLink, 16);
-        I.retry(16).click(this.topNavBar.companySettingsLink);
-        I.click(this.topNavBar.companySettingsDropdown.companyProfileLink);
+    visitCompanyProfile() {
+        let browser = new BrowserHelper_js_1.BrowserHelper();
+        let dashboardPage = this;
+        browser.waitFor(this.topNavBar.companySettingsLink).then(function () {
+            return browser.clickAfter(dashboardPage.topNavBar.companySettingsLink);
+        }).then(function () {
+            return browser.clickAfter(dashboardPage.topNavBar.companySettingsDropdown.companyProfileLink);
+        }).catch(function (error) {
+            assert(false);
+        });
     }
 };

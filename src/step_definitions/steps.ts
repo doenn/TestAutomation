@@ -14,7 +14,8 @@ Given('the User has a completed Company Profile', () => {
 
 When('the Tenant visits their Company Profile', () => {
   	//const dashboardPage = require('../pages/DashboardPage.js');
-	dashboardPage.visitCompanyPofile();
+	dashboardPage.visitCompanyProfile();
+	companyProfilePage.loaded();
 });
 
 Then('the User sees their logo', () => {
@@ -28,15 +29,12 @@ Then('the User sees their Company information', () => {
 });
 
 Given('the Tenant is logged in', () => {
-	//const loginPage = require('../pages/LoginPage.js');
-	
 	loginPage.login();
-
 });
 
 Given('the Tenant visits their Company Profile', () => {
-  	//const dashboardPage = require('../pages/DashboardPage.js');
-	dashboardPage.visitCompanyPofile();
+	dashboardPage.visitCompanyProfile();
+	companyProfilePage.loaded();
 });
 
 Given('the User has an incomplete Company Profile', () => {
@@ -57,6 +55,5 @@ Then('the User sees a missing logo', async () => {
 Then('the User sees missing Company information', async() => {
 
 	
-	//const companyProfilePage = require('../pages/CompanyProfilePage.js');
 	companyProfilePage.verifyDescriptionFieldBlank();
 });

@@ -21,5 +21,26 @@ class BrowserHelper extends Helper {
             return elementPresent;
         });
     }
+    // Wait for sustained visibility
+    // Waits a second time if obstructed from view by a spinner
+    waitFor(elementSelector, timeout) {
+        if (!timeout) {
+            let timeout = 8000; // Default timeout 8 seconds
+        }
+        let browser = this.helpers['WebDriverIO'].browser;
+        return browser.waitForVisible(elementSelector, timeout).then(function () {
+            return browser.waitForVisible(elementSelector, 400, false);
+        })
+            .then(function () {
+            return browser.waitForVisible(elementSelector, timeout);
+        }).catch(function () {
+            return false;
+        });
+    }
+    // Chainable click
+    clickAfter(elementSelector) {
+        let browser = this.helpers['WebDriverIO'].browser;
+        return browser.click(elementSelector);
+    }
 }
 exports.BrowserHelper = BrowserHelper;

@@ -20,7 +20,8 @@ Given('the User has a completed Company Profile', () => {
 });
 When('the Tenant visits their Company Profile', () => {
     //const dashboardPage = require('../pages/DashboardPage.js');
-    dashboardPage.visitCompanyPofile();
+    dashboardPage.visitCompanyProfile();
+    companyProfilePage.loaded();
 });
 Then('the User sees their logo', () => {
     // From "features\ViewEditCompanyProfile.feature" {"line":6,"column":3}
@@ -31,17 +32,15 @@ Then('the User sees their Company information', () => {
     //throw new Error('Not implemented yet');
 });
 Given('the Tenant is logged in', () => {
-    //const loginPage = require('../pages/LoginPage.js');
     loginPage.login();
 });
 Given('the Tenant visits their Company Profile', () => {
-    //const dashboardPage = require('../pages/DashboardPage.js');
-    dashboardPage.visitCompanyPofile();
+    dashboardPage.visitCompanyProfile();
+    companyProfilePage.loaded();
 });
 Given('the User has an incomplete Company Profile', () => {
 });
 Then('the User sees a missing logo', () => __awaiter(this, void 0, void 0, function* () {
-    //const companyProfilePage = require('../pages/CompanyProfilePage.js');
     let companyLogoMissing = yield companyProfilePage.isCompanyLogoMissing();
     assert(companyLogoMissing);
 }));

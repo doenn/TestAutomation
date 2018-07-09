@@ -17,6 +17,9 @@ export = {
 	companyProfileHeading: "//h3[text()[contains(.,'Company Profile')]]",
 	companyLogoMissingElement: "//section//div/img[@src[contains(.,'no_image_available.png')]]",
 	blankDescriptionField: "//div/textarea[not(text())]",
+	loaded(){
+		I.waitForElement(this.companyProfileHeading,20);
+	},
 	async isCompanyLogoMissing(){
 		let browser = new BrowserHelper();
 		I.waitForElement(this.companyProfileHeading,16);
