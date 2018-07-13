@@ -11,15 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var I = actor();
 let assert = require('assert');
 module.exports = {
-    topNavBar: {
-        dashboardLink: "//a[text()[contains(.,'DASHBOARD')]]",
-        manageProspectsLink: "//a[text()[contains(.,'MANAGE PROSPECTS')]]",
-        digitalAssetsLink: "//a[text()[contains(.,'DIGITAL ASSETS')]]",
-        companySettingsLink: "//a[text()[contains(.,'COMPANY SETTINGS')]]",
-        companySettingsDropdown: {
-            companyProfileLink: "//a[text()[contains(.,'COMPANY PROFILE')]]"
-        },
-    },
     companyProfileHeading: "//h3[text()[contains(.,'Company Profile')]]",
     companyLogoPresentElement: "//section//div/img[@src[contains(.,'company_logo')]]",
     companyLogoMissingElement: "//section//div/img[@src[contains(.,'no_image_available.png')]]",

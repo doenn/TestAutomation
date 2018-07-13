@@ -4,7 +4,9 @@ const I = actor();
 import {BrowserHelper} from "../helpers/BrowserHelper.js";
 import loginPage = require('../pages/LoginPage.js');
 import dashboardPage = require('../pages/DashboardPage.js');
+import topNavBarPage = require('../pages/TopNavBarPage.js');
 import companyProfilePage = require('../pages/CompanyProfilePage.js');
+import websiteParametersPage = require('../pages/WebsiteParametersPage.js');
 import assert = require('assert');
 
 Given('the User has a completed Company Profile', () => {
@@ -12,7 +14,7 @@ Given('the User has a completed Company Profile', () => {
 });
 
 When('the Tenant visits their Company Profile', () => {
-	dashboardPage.visitCompanyProfile();
+	topNavBarPage.visitCompanyProfile();
 	companyProfilePage.loaded();
 });
 
@@ -31,7 +33,7 @@ Given('the Tenant is logged in', () => {
 });
 
 Given('the Tenant visits their Company Profile', () => {
-	dashboardPage.visitCompanyProfile();
+	topNavBarPage.visitCompanyProfile();
 	companyProfilePage.loaded();
 });
 
@@ -54,7 +56,7 @@ Then('the User sees missing Company information', async() => {
 });
 
 When('the User changes their logo and refreshes their Company Profile',() => {
-	dashboardPage.visitCompanyProfile();
+	topNavBarPage.visitCompanyProfile();
 	companyProfilePage.loaded();
 	I.waitForElement(companyProfilePage.companyLogoUpload,16);
 	I.attachFile(companyProfilePage.companyLogoUpload,"./resources/TestImage2.jpg");
@@ -69,7 +71,7 @@ Then('the User sees their new logo', () => {
 });
 
 When('the User changes their Company Name and Description and refreshes',() => {
-	dashboardPage.visitCompanyProfile();
+	topNavBarPage.visitCompanyProfile();
 	companyProfilePage.loaded();
 	I.waitForElement(companyProfilePage.companyLogoUpload,16);
 
@@ -88,7 +90,7 @@ When('the User changes their Company Name and Description and refreshes',() => {
 });
 
 When('the User specifies a new Company Name and Description and refreshes', () => {
-	dashboardPage.visitCompanyProfile();
+	topNavBarPage.visitCompanyProfile();
 	companyProfilePage.loaded();
 	I.waitForElement(companyProfilePage.companyLogoUpload,16);
 
@@ -133,15 +135,18 @@ Then('the Link shows a link expired page', () => {
 
 
 Given('the User has never specified a Link Duration', () => {
-	// 
 });
 
 When('the User Views the link duration dropdown', () => {
-	//
+	topNavBarPage.visitWebsiteParameters();
+	websiteParametersPage.loaded();
+	I.click(websiteParametersPage.linkDurationEditButton);
 });
 
-Then('the User sees the default link duration valueo', () => {
-	//
+Then('the User sees the default link duration value', async () => {
+	let linkDropdownValue : number = await I.grabValueFrom(websiteParametersPage.linkDurationDropdown);
+	assert.equal(linkDropdownValue, 24);
+	
 });
 
 

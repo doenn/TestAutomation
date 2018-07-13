@@ -13,6 +13,7 @@
     "I": "./steps_file.js",
     "loginPage": "./pages/LoginPage.js",
     "dashboardPage": "./pages/DashboardPage.js",
+    "topNavBarPage": "./pages/TopNavBarPage.js",
     "companyProfilePage": "./pages/CompanyProfilePage.js",
     "tenant": "./resources/User.js",
     "BrowserHelper": "./helpers/BrowserHelper.js"
