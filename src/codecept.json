@@ -15,6 +15,7 @@
     "dashboardPage": "./pages/DashboardPage.js",
     "topNavBarPage": "./pages/TopNavBarPage.js",
     "companyProfilePage": "./pages/CompanyProfilePage.js",
+    "manageUsersPage": "./pages/ManageUsersPage.js",
     "tenant": "./resources/User.js",
     "BrowserHelper": "./helpers/BrowserHelper.js"
   },

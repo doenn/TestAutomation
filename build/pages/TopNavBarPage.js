@@ -12,7 +12,8 @@ module.exports = {
     digitalAssetsLink: "//a[text()[contains(.,'DIGITAL ASSETS')]]",
     companySettingsLink: "//a[text()[contains(.,'COMPANY SETTINGS')]]",
     companySettingsDropdown: {
-        companyProfileLink: "//a[text()[contains(.,'COMPANY PROFILE')]]"
+        companyProfileLink: "//a[text()[contains(.,'COMPANY PROFILE')]]",
+        manageUsersLink: "//a[text()[contains(.,'MANAGE USERS')]]"
     },
     visitCompanyProfile() {
         let browser = new BrowserHelper_js_1.BrowserHelper();
@@ -21,6 +22,17 @@ module.exports = {
             return browser.clickAfter(topNavBarPage.companySettingsLink);
         }).then(function () {
             return browser.clickAfter(topNavBarPage.companySettingsDropdown.companyProfileLink);
+        }).catch(function (error) {
+            assert(false);
+        });
+    },
+    visitManageUsers() {
+        let browser = new BrowserHelper_js_1.BrowserHelper();
+        let topNavBarPage = this;
+        browser.waitFor(topNavBarPage.companySettingsLink).then(function () {
+            return browser.clickAfter(topNavBarPage.companySettingsLink);
+        }).then(function () {
+            return browser.clickAfter(topNavBarPage.companySettingsDropdown.manageUsersLink);
         }).catch(function (error) {
             assert(false);
         });

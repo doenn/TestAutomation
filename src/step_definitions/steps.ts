@@ -7,7 +7,10 @@ import dashboardPage = require('../pages/DashboardPage.js');
 import topNavBarPage = require('../pages/TopNavBarPage.js');
 import companyProfilePage = require('../pages/CompanyProfilePage.js');
 import websiteParametersPage = require('../pages/WebsiteParametersPage.js');
+import manageUsersPage = require('../pages/ManageUsersPage.js');
 import assert = require('assert');
+import outlook = require('../outlook/Outlook.js');
+
 
 Given('the User has a completed Company Profile', () => {
 	// Tenant with completed Profile
@@ -146,6 +149,57 @@ When('the User Views the link duration dropdown', () => {
 Then('the User sees the default link duration value', async () => {
 	let linkDropdownValue : number = await I.grabValueFrom(websiteParametersPage.linkDurationDropdown);
 	assert.equal(linkDropdownValue, 24);
+	
+});
+
+Given('a User is able to edit the Manage Users page', () => {
+});
+
+When('the User adds a new User as an Admin', () => {
+	topNavBarPage.visitManageUsers();
+	manageUsersPage.loaded();
+	manageUsersPage.newAdminUser();
+});
+
+Then('the new User can edit the Manage Users page as well', async () => {
+	
+});
+
+When('the User removes a User from the Manage Users page', () => {
+	console.log("Nothing");
+	outlook.setup();
+	outlook.callGraphApi();
+});
+
+Then('the new User can no longer login to the Company site', async () => {
+	
+});
+
+When('the User sends a password reset to another User', () => {
+
+});
+
+When('that other user must change their password upon login', () => {
+
+});
+
+Then('that other user receives a password reset email', async () => {
+	
+});
+
+When('the User deactivates a User from the Manage Users page', () => {
+
+});
+
+Then('the deactivated User can no longer login to the Company site', async () => {
+	
+});
+
+When('the User activates a User from the Manage Users page', () => {
+
+});
+
+Then('the deactivated User can login to the Company site', async () => {
 	
 });
 

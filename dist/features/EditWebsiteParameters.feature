@@ -9,7 +9,7 @@ Feature: View and Edit Company Profile
 		When a Prospect accesses a link after the Duration passes
 		Then the Link shows a link expired page
 
-	@Incomplete
+	@Full
 	Scenario: View access link duration defaults
 		Given the User has never specified a Link Duration
 		When the User Views the link duration dropdown

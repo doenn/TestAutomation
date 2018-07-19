@@ -14,7 +14,9 @@ const loginPage = require("../pages/LoginPage.js");
 const topNavBarPage = require("../pages/TopNavBarPage.js");
 const companyProfilePage = require("../pages/CompanyProfilePage.js");
 const websiteParametersPage = require("../pages/WebsiteParametersPage.js");
+const manageUsersPage = require("../pages/ManageUsersPage.js");
 const assert = require("assert");
+const outlook = require("../outlook/Outlook.js");
 Given('the User has a completed Company Profile', () => {
     // Tenant with completed Profile
 });
@@ -113,17 +115,43 @@ Then('the Link shows a link expired page', () => {
     //
 });
 Given('the User has never specified a Link Duration', () => {
-    console.log("the User has never specified a Link Duration");
 });
 When('the User Views the link duration dropdown', () => {
-    console.log("the User Views the link duration dropdown");
     topNavBarPage.visitWebsiteParameters();
     websiteParametersPage.loaded();
     I.click(websiteParametersPage.linkDurationEditButton);
 });
 Then('the User sees the default link duration value', () => __awaiter(this, void 0, void 0, function* () {
-    console.log("the User sees the default link duration value");
     let linkDropdownValue = yield I.grabValueFrom(websiteParametersPage.linkDurationDropdown);
-    console.log(linkDropdownValue);
     assert.equal(linkDropdownValue, 24);
+}));
+Given('a User is able to edit the Manage Users page', () => {
+});
+When('the User adds a new User as an Admin', () => {
+    topNavBarPage.visitManageUsers();
+    manageUsersPage.loaded();
+    manageUsersPage.newAdminUser();
+});
+Then('the new User can edit the Manage Users page as well', () => __awaiter(this, void 0, void 0, function* () {
+}));
+When('the User removes a User from the Manage Users page', () => {
+    console.log("Nothing");
+    outlook.setup();
+    outlook.callGraphApi();
+});
+Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
+}));
+When('the User sends a password reset to another User', () => {
+});
+When('that other user must change their password upon login', () => {
+});
+Then('that other user receives a password reset email', () => __awaiter(this, void 0, void 0, function* () {
+}));
+When('the User deactivates a User from the Manage Users page', () => {
+});
+Then('the deactivated User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
+}));
+When('the User activates a User from the Manage Users page', () => {
+});
+Then('the deactivated User can login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
 }));
