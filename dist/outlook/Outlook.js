@@ -1,162 +1,155 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 /// <reference path="../steps.d.ts" />
-var Msal = require('msal');
-const msalconfig = require("./msalconfig.js");
-module.exports = {
-    setup() {
-        // Graph API endpoint to show user profile
-        let graphApiEndpoint = "https://graph.microsoft.com/v1.0/me";
-        // Graph API scope used to obtain the access token to read user profile
-        let graphAPIScopes = ["https://graph.microsoft.com/user.read"];
-        // Initialize application
-        let userAgentApplication = new Msal.this.userAgentApplication(msalconfig.clientID, null, this.loginCallback, {
-            redirectUri: msalconfig.redirectUri
-        });
-        //Previous version of msal uses redirect url via a property
-        if (this.userAgentApplication.redirectUri) {
-            this.userAgentApplication.redirectUri = msalconfig.redirectUri;
-        }
-    },
-    /*
-    window.onload = function () {
-        // If page is refreshed, continue to display user info
-        if (!this.userAgentApplication.isCallback(window.location.hash) && window.parent === window && !window.opener) {
-            var user = this.userAgentApplication.getUser();
-            if (user) {
-                this.callGraphApi();
-            }
-        }
-    }
-    */
-    /**
-     * Call the Microsoft Graph API and display the results on the page
-     */
-    callGraphApi() {
-        var user = this.userAgentApplication.getUser();
-        if (!user) {
-            // If user is not signed in, then prompt user to sign in via loginRedirect.
-            // This will redirect user to the Azure Active Directory v2 Endpoint
-            this.userAgentApplication.loginRedirect(this.graphAPIScopes);
-            // The call to loginRedirect above frontloads the consent to query Graph API during the sign-in.
-            // If you want to use dynamic consent, just remove the this.graphAPIScopes from loginRedirect call:
-            // As such, user will be prompted to give consent as soon as the token for a resource that 
-            // he/she hasn't consented before is requested. In the case of this application - 
-            // the first time the Graph API call to obtain user's profile is executed.
-        }
-        else {
-            // If user is already signed in, display the user info
-            /* var userInfoElement = document.getElementById("userInfo");
-            userInfoElement.parentElement.classList.remove("hidden");
-            userInfoElement.innerHTML = JSON.stringify(user, null, 4);
-
-            // Show Sign-Out button
-            document.getElementById("this.signOutButton").classList.remove("hidden");
-
-            // Now Call Graph API to show the user profile information:
-            var graphCallResponseElement = document.getElementById("graphResponse");
-            graphCallResponseElement.parentElement.classList.remove("hidden");
-            graphCallResponseElement.innerText = "Calling Graph ...";
+require('dotenv').config();
+let authHelper = require('./auth.js');
+let MicrosoftGraph = require('@microsoft/microsoft-graph-client');
+//var ClientOAuth2 = require('client-oauth2')
+var request = require('request');
+var url = require('url');
+class Outlook {
+    constructor() {
+        this.authorize();
+        /*this.accessToken = authHelper.getTokenFromCode("Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
+        
+        
+        this.client = MicrosoftGraph.Client.init({
+                    authProvider: (done) => {
+                        done(null, this.accessToken); //first parameter takes an error if you can't get an access token
+                    }
+                    });
         */
-            // In order to call the Graph API, an access token needs to be acquired.
-            // Try to acquire the token used to Query Graph API silently first
-            this.userAgentApplication.acquireTokenSilent(this.graphAPIScopes)
-                .then(function (token) {
-                //After the access token is acquired, call the Web API, sending the acquired token
-                this.callWebApiWithToken(this.graphApiEndpoint, token, null, null); //graphCallResponseElement, document.getElementById("accessToken"));
-            }, function (error) {
-                // If the acquireTokenSilent() method fails, then acquire the token interactively via acquireTokenRedirect().
-                // In this case, the browser will redirect user back to the Azure Active Directory v2 Endpoint so the user 
-                // can re-type the current username and password and/ or give consent to new permissions your application is requesting.
-                // After authentication/ authorization completes, this page will be reloaded again and this.callGraphApi() will be called.
-                // Then, acquireTokenSilent will then acquire the token silently, the Graph API call results will be made and results will be displayed in the page.
-                if (error) {
-                    this.userAgentApplication.acquireTokenRedirect(this.graphAPIScopes);
+    }
+    authorize() {
+        return __awaiter(this, void 0, void 0, function* () {
+            /*
+                var clientAuth = new ClientOAuth2({
+              clientId: '7ef5629d-9bac-4715-be3b-afbbb3a527b8',
+              clientSecret: 'fxhULY724[{pczkKRSI03|$',
+              accessTokenUri: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+              authorizationUri: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+              redirectUri: 'http://localhost:3000/authorize',
+              scopes: ['openid', 'profile', 'User.Read', 'Mail.Read']
+            })
+            var token = clientAuth.createToken('access token', 'optional refresh token', 'optional token type', { data: 'raw user data' })
+            console.log("TOKEN: " +clientAuth.credentials.getToken());
+            console.log("ACCESS TOKEN: " +token.accessToken);
+            token.expiresIn(1234) // Seconds.
+            token.expiresIn(new Date('2019-11-08'));
+            console.log("ACCESS Code: " +token.code);
+            token.refresh().then(function(user){
+            console.log("TOKEN4: " +user.accessToken);
+            }).catch(function(error){
+                            console.log("Error");
+                        });
+            
+             console.log("ACCESS TOKEN: " +token.accessToken);
+            // Sign a standard HTTP request object, updating the URL with the access token
+            // or adding authorization headers, depending on token type.
+            var obj = token.sign({
+              method: 'get',
+              url: 'https://login.microsoftonline.com'
+            })
+            
+            console.log("Obj: " + obj.headers.Authorization);
+            
+            
+            console.log("TOKEN: " +clientAuth.credentials.getToken());
+                console.log("ACCESS TOKEN: " +token.accessToken);
+            
+            clientAuth.token.getToken("http://localhost:4444")
+                .then(function (user) {
+                    console.log("TOKEN: " +user.accessToken);
+                }).catch(function(error){
+                            console.log("Error");
+                        });
+            */
+            console.log("L: " + authHelper.getAuthUrl());
+            var tokenRequest = request({ url: authHelper.getAuthUrl(), method: "get", followAllRedirects: true }, function (e, response) {
+                console.log("L3: " + tokenRequest.uri.href);
+                console.log("L4: " + response.request.href);
+                console.log("L: " + response.request.uri.query);
+                //var parts = url.parse(response.request.uri.query, true);
+                // var query = parts.query;
+                console.log("L: " + response.request.uri.query.code);
+                var redirectRequest = request({ url: response.request.uri.href, method: "POST" }, function (error, response, html) {
+                    //console.log(html);
+                    console.log("L2: " + redirectRequest.uri.href);
+                    console.log("L22: " + response.request.href);
+                });
+                console.log("L2o: " + redirectRequest.uri.href);
+            });
+            //requestAgent
+            //			.get(authHelper.getAuthUrl())
+            /*.then((err, res) =>{
+console.log("Val:" + res.header.value);
+                console.log("Val:" + res.body.value);*/
+            //})*/
+            /*
+            .redirects(1)
+            //  .then((err, res) => {
+                        .end((err, res) => {
+                                if (err) {
+                            console.log("Error1");
+                                    //console.error(err)
+                                    //return;
+                                }
+            
+            
+            
+                        console.log("ValR3:" + res.text);
+                        console.log("ValR:" + res.header.value);
+                        console.log("ValR2:" + res.header.url);
+                            //console.log("Val:" + res.body.code);
+                         //   }).catch(function(error){
+                        //	console.log("Error");
+                        //	console.log(error);
+                        });
+            
+            */
+            this.accessToken = yield authHelper.getTokenFromCode("Ma65becee-64fe-9825-07fa-626835016e6c"); //Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
+            this.client = MicrosoftGraph.Client.init({
+                authProvider: (done) => {
+                    done(null, this.accessToken); //first parameter takes an error if you can't get an access token
                 }
             });
-        }
-    },
-    /**
-     * Show an error message in the page
-     * @param {string} endpoint - the endpoint used for the error message
-     * @param {string} error - the error string
-     * @param {object} errorElement - the HTML element in the page to display the error
-     */
-    showError(endpoint, error, errorDesc) {
-        var formattedError = JSON.stringify(error, null, 4);
-        if (formattedError.length < 3) {
-            formattedError = error;
-        }
-        //document.getElementById("errorMessage").innerHTML = "An error has occurred:<br/>Endpoint: " + endpoint + "<br/>Error: " + formattedError + "<br/>" + errorDesc;
-        console.error(error);
-    },
-    /**
-     * Callback method from sign-in: if no errors, call this.callGraphApi() to show results.
-     * @param {string} errorDesc - If error occur, the error message
-     * @param {object} token - The token received from login
-     * @param {object} error - The error
-     * @param {string} tokenType - The token type: For loginRedirect, tokenType = "id_token". For acquireTokenRedirect, tokenType:"access_token"
-     */
-    loginCallback(errorDesc, token, error, tokenType) {
-        if (errorDesc) {
-            //this.showError(msal.authority, error, errorDesc);
-        }
-        else {
-            this.callGraphApi();
-        }
-    },
-    /**
-     * Call a Web API using an access token.
-     *
-     * @param {any} endpoint - Web API endpoint
-     * @param {any} token - Access token
-     * @param {object} responseElement - HTML element used to display the results
-     * @param {object} showTokenElement = HTML element used to display the RAW access token
-     */
-    callWebApiWithToken(endpoint, token, responseElement, showTokenElement) {
-        var headers = new Headers();
-        var bearer = "Bearer " + token;
-        headers.append("Authorization", bearer);
-        var options = {
-            method: "GET",
-            headers: headers
-        };
-        fetch(endpoint, options)
-            .then(function (response) {
-            var contentType = response.headers.get("content-type");
-            if (response.status === 200 && contentType && contentType.indexOf("application/json") !== -1) {
-                response.json()
-                    .then(function (data) {
-                    // Display response in the page
-                    console.log(data);
-                    /*responseElement.innerHTML = JSON.stringify(data, null, 4);
-                    if (showTokenElement) {
-                        showTokenElement.parentElement.classList.remove("hidden");
-                        showTokenElement.innerHTML = token;
-                    }*/
-                })
-                    .catch(function (error) {
-                    this.showError(endpoint, error, null);
-                });
-            }
-            else {
-                response.json()
-                    .then(function (data) {
-                    // Display response as error in the page
-                    this.showError(endpoint, data, null);
-                })
-                    .catch(function (error) {
-                    this.showError(endpoint, error, null);
-                });
-            }
-        })
-            .catch(function (error) {
-            this.showError(endpoint, error, null);
+            this.client
+                .api('/me')
+                .select("displayName")
+                .get()
+                .then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            });
         });
-    },
-    /**
-     * Sign-out the user
-     */
-    signOut() {
-        this.userAgentApplication.logout();
     }
-};
+    getLastEmail() {
+        return __awaiter(this, void 0, void 0, function* () {
+            /*this.client
+                .api('/me')
+                .select("displayName")
+                .get()
+                .then((res) => {
+                    console.log(res);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            */
+            /*this.client
+                .api('/me')
+                .get((err, res) => {
+                    console.log(res); // prints info about authenticated user
+                });*/
+        });
+    }
+}
+exports.Outlook = Outlook;

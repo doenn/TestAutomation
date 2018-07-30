@@ -16,7 +16,7 @@ const companyProfilePage = require("../pages/CompanyProfilePage.js");
 const websiteParametersPage = require("../pages/WebsiteParametersPage.js");
 const manageUsersPage = require("../pages/ManageUsersPage.js");
 const assert = require("assert");
-const outlook = require("../outlook/Outlook.js");
+const Outlook_js_1 = require("../outlook/Outlook.js");
 Given('the User has a completed Company Profile', () => {
     // Tenant with completed Profile
 });
@@ -134,11 +134,11 @@ When('the User adds a new User as an Admin', () => {
 });
 Then('the new User can edit the Manage Users page as well', () => __awaiter(this, void 0, void 0, function* () {
 }));
-When('the User removes a User from the Manage Users page', () => {
+When('the User removes a User from the Manage Users page', () => __awaiter(this, void 0, void 0, function* () {
     console.log("Nothing");
-    outlook.setup();
-    outlook.callGraphApi();
-});
+    let outlook = new Outlook_js_1.Outlook();
+    yield outlook.getLastEmail();
+}));
 Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
 }));
 When('the User sends a password reset to another User', () => {

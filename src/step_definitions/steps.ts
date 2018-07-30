@@ -1,5 +1,7 @@
 /// <reference path="../steps.d.ts" />
 
+
+
 const I = actor();
 import {BrowserHelper} from "../helpers/BrowserHelper.js";
 import loginPage = require('../pages/LoginPage.js');
@@ -9,7 +11,7 @@ import companyProfilePage = require('../pages/CompanyProfilePage.js');
 import websiteParametersPage = require('../pages/WebsiteParametersPage.js');
 import manageUsersPage = require('../pages/ManageUsersPage.js');
 import assert = require('assert');
-import outlook = require('../outlook/Outlook.js');
+import {Outlook} from "../outlook/Outlook.js";
 
 
 Given('the User has a completed Company Profile', () => {
@@ -165,10 +167,11 @@ Then('the new User can edit the Manage Users page as well', async () => {
 	
 });
 
-When('the User removes a User from the Manage Users page', () => {
+When('the User removes a User from the Manage Users page', async () => {
 	console.log("Nothing");
-	outlook.setup();
-	outlook.callGraphApi();
+	
+	let outlook = new Outlook();
+	await outlook.getLastEmail();
 });
 
 Then('the new User can no longer login to the Company site', async () => {

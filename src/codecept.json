@@ -17,6 +17,7 @@
     "companyProfilePage": "./pages/CompanyProfilePage.js",
     "manageUsersPage": "./pages/ManageUsersPage.js",
     "tenant": "./resources/User.js",
+    "Outlook": "./outlook/Outlook.js",
     "BrowserHelper": "./helpers/BrowserHelper.js"
   },
   "mocha": {},
