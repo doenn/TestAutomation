@@ -8,6 +8,8 @@ let MicrosoftGraph = require('@microsoft/microsoft-graph-client');
 var request = require('request');
 var url = require('url');
 
+import {BrowserHelper} from "../helpers/BrowserHelper.js";
+
 
 export class Outlook {
 	client : any;
@@ -93,7 +95,7 @@ console.log("L2o: " + redirectRequest.uri.href);
 	});
 
 
-
+	
 
 //requestAgent
 //			.get(authHelper.getAuthUrl())
@@ -124,6 +126,25 @@ console.log("Val:" + res.header.value);
 			});
 
 */
+
+
+	}	
+
+	async getOutlookAuthCode(){
+
+
+
+let browser = new BrowserHelper();
+
+	return await browser.getAuthCode(authHelper.getAuthUrl());
+
+}
+
+	async getLastEmail(){
+
+
+
+
 this.accessToken = await authHelper.getTokenFromCode("Ma65becee-64fe-9825-07fa-626835016e6c");//Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
 
 
@@ -143,9 +164,7 @@ this.client
         console.log(err);
     });
 
-	}	
-
-	async getLastEmail(){
+	
 /*this.client
     .api('/me')
     .select("displayName")

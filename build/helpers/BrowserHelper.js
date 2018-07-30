@@ -54,5 +54,19 @@ class BrowserHelper extends Helper {
             return false;
         });
     }
+    // Gets OAuth2 authentication code by navigating to the generated Outlook link and signing in.
+    getAuthCode(generatedLink) {
+        let browser = this.helpers['WebDriverIO'].browser;
+        return browser.url(generatedLink).then(function () {
+            return browser.setValue("input[@type='email']", "omedym-qa@outlook.com");
+        }).then(function () {
+            return browser.click("input[@type='submit']");
+        }).then(function () {
+            return browser.getURL();
+        }).catch(function (error) {
+            console.log(error);
+            return "Authentication Error";
+        });
+    }
 }
 exports.BrowserHelper = BrowserHelper;

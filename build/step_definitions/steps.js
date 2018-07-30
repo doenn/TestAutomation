@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const I = actor();
+const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
 const loginPage = require("../pages/LoginPage.js");
 const topNavBarPage = require("../pages/TopNavBarPage.js");
 const companyProfilePage = require("../pages/CompanyProfilePage.js");
@@ -138,6 +139,8 @@ When('the User removes a User from the Manage Users page', () => __awaiter(this,
     console.log("Nothing");
     let outlook = new Outlook_js_1.Outlook();
     yield outlook.getLastEmail();
+    let browser = new BrowserHelper_js_1.BrowserHelper();
+    console.log("Link Code" + (yield outlook.getOutlookAuthCode()));
 }));
 Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
 }));

@@ -15,6 +15,7 @@ let MicrosoftGraph = require('@microsoft/microsoft-graph-client');
 //var ClientOAuth2 = require('client-oauth2')
 var request = require('request');
 var url = require('url');
+const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
 class Outlook {
     constructor() {
         this.authorize();
@@ -115,6 +116,16 @@ console.log("Val:" + res.header.value);
                         });
             
             */
+        });
+    }
+    getOutlookAuthCode() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let browser = new BrowserHelper_js_1.BrowserHelper();
+            return yield browser.getAuthCode(authHelper.getAuthUrl());
+        });
+    }
+    getLastEmail() {
+        return __awaiter(this, void 0, void 0, function* () {
             this.accessToken = yield authHelper.getTokenFromCode("Ma65becee-64fe-9825-07fa-626835016e6c"); //Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
             this.client = MicrosoftGraph.Client.init({
                 authProvider: (done) => {
@@ -130,10 +141,6 @@ console.log("Val:" + res.header.value);
             }).catch((err) => {
                 console.log(err);
             });
-        });
-    }
-    getLastEmail() {
-        return __awaiter(this, void 0, void 0, function* () {
             /*this.client
                 .api('/me')
                 .select("displayName")
