@@ -138,9 +138,13 @@ Then('the new User can edit the Manage Users page as well', () => __awaiter(this
 When('the User removes a User from the Manage Users page', () => __awaiter(this, void 0, void 0, function* () {
     console.log("Nothing");
     let outlook = new Outlook_js_1.Outlook();
-    yield outlook.getLastEmail();
+    //await outlook.getLastEmail()
     let browser = new BrowserHelper_js_1.BrowserHelper();
-    console.log("Link Code" + (yield outlook.getOutlookAuthCode()));
+    yield browser.visitPage(outlook.generateAuthURL());
+    I.fillField("input[@type='email']", "omedym-qa@outlook.com");
+    I.click("input[@type='submit']");
+    let authURL = yield I.grabCurrentUrl();
+    console.log(authURL);
 }));
 Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
 }));

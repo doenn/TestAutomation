@@ -18,7 +18,7 @@ var url = require('url');
 const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
 class Outlook {
     constructor() {
-        this.authorize();
+        //this.authorize();
         /*this.accessToken = authHelper.getTokenFromCode("Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
         
         
@@ -118,10 +118,15 @@ console.log("Val:" + res.header.value);
             */
         });
     }
+    generateAuthURL() {
+        this.authURL = authHelper.getAuthUrl();
+    }
     getOutlookAuthCode() {
-        return __awaiter(this, void 0, void 0, function* () {
-            let browser = new BrowserHelper_js_1.BrowserHelper();
-            return yield browser.getAuthCode(authHelper.getAuthUrl());
+        let browser = new BrowserHelper_js_1.BrowserHelper();
+        return browser.getAuthCode(this.authURL)
+            .catch(function (error) {
+            console.log(error);
+            return "Authentication Error";
         });
     }
     getLastEmail() {

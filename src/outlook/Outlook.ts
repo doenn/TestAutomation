@@ -14,8 +14,9 @@ import {BrowserHelper} from "../helpers/BrowserHelper.js";
 export class Outlook {
 	client : any;
 	accessToken : any;
+	authURL : string;
 	constructor(){
-		this.authorize();
+		//this.authorize();
 
 
 /*this.accessToken = authHelper.getTokenFromCode("Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
@@ -130,13 +131,23 @@ console.log("Val:" + res.header.value);
 
 	}	
 
-	async getOutlookAuthCode(){
+	generateAuthURL(){
+
+		this.authURL = authHelper.getAuthUrl();
+
+}
+
+	getOutlookAuthCode(){
 
 
 
 let browser = new BrowserHelper();
 
-	return await browser.getAuthCode(authHelper.getAuthUrl());
+	return browser.getAuthCode(this.authURL)
+			.catch(function(error){
+				console.log(error);
+				return "Authentication Error";
+			});
 
 }
 

@@ -171,10 +171,15 @@ When('the User removes a User from the Manage Users page', async () => {
 	console.log("Nothing");
 	
 	let outlook = new Outlook();
-	await outlook.getLastEmail();
+	//await outlook.getLastEmail()
 	let browser = new BrowserHelper();
 
-	console.log("Link Code" + await outlook.getOutlookAuthCode());
+	await browser.visitPage(outlook.generateAuthURL());
+	I.fillField("input[@type='email']","omedym-qa@outlook.com");
+	I.click("input[@type='submit']");
+	let authURL = await I.grabCurrentUrl();
+	console.log(authURL);
+
 });
 
 Then('the new User can no longer login to the Company site', async () => {
