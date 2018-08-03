@@ -200,6 +200,10 @@ When('the User removes a User from the Manage Users page', async () => {
 	//I.waitInUrl("localhost:3000");
 	let authURL = await I.grabCurrentUrl();
 	console.log(authURL);
+	let codePattern  = /code\=(.*)/;
+	let codeMatches =  authURL.match(codePattern);
+	outlook.code = codeMatches[1];
+	console.log(outlook.code);
 
 });
 

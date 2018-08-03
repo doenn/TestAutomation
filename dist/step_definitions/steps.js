@@ -165,6 +165,9 @@ When('the User removes a User from the Manage Users page', () => __awaiter(this,
     //I.waitInUrl("localhost:3000");
     let authURL = yield I.grabCurrentUrl();
     console.log(authURL);
+    let codePattern = /code\=(.*)/;
+    outlook.code = authURL.match(codePattern);
+    console.log(outlook.code);
 }));
 Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
 }));

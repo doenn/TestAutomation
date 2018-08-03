@@ -15,6 +15,7 @@ export class Outlook {
 	client : any;
 	accessToken : any;
 	authURL : string;
+	code : string;
 	constructor(){
 		//this.authorize();
 
