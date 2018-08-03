@@ -45,6 +45,11 @@ class BrowserHelper extends Helper {
         let browser = this.helpers['WebDriverIO'].browser;
         return browser.click(elementSelector);
     }
+    // Chainable Fill field
+    fillAfter(elementSelector, value) {
+        let browser = this.helpers['WebDriverIO'].browser;
+        return browser.setValue(elementSelector, value);
+    }
     // Refresh Browser with chaining
     refreshAfter() {
         let browser = this.helpers['WebDriverIO'].browser;
@@ -54,21 +59,23 @@ class BrowserHelper extends Helper {
             return false;
         });
     }
-    visitPage(url) {
-        let browser = this.helpers['WebDriverIO'].browser;
-        return browser.url(url).catch(function (error) {
-            console.log(error);
-            return false;
+    submitElementForm(selector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let browser = this.helpers['WebDriverIO'].browser;
+            return browser.submitForm(selector).catch(function (error) {
+                console.log(error);
+                return "Form submission error";
+            });
         });
     }
     // Gets OAuth2 authentication code by navigating to the generated Outlook link and signing in.
     getAuthCode(generatedLink) {
         let browser = this.helpers['WebDriverIO'].browser;
         return browser.url(generatedLink).then(function () {
-            return browser.setValue("input[@type='email']", "omedym-qa@outlook.com");
+            return browser.setValue("//input[@type='email']", "omedym-qa@outlook.com");
         }).then(function () {
             console.log("A");
-            return browser.click("input[@type='submit']");
+            return browser.click("//input[@type='submit']");
         }).then(function () {
             console.log("B");
             return browser.getURL();

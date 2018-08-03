@@ -39,6 +39,11 @@ export class BrowserHelper extends Helper {
 		let browser = this.helpers['WebDriverIO'].browser;
 		return browser.click(elementSelector);
 	}
+	// Chainable Fill field
+	fillAfter(elementSelector : string, value : any) : Promise<boolean>{
+		let browser = this.helpers['WebDriverIO'].browser;
+		return browser.setValue(elementSelector, value);
+	}
 	
 	// Refresh Browser with chaining
 	refreshAfter() : Promise<boolean>{
@@ -50,11 +55,11 @@ export class BrowserHelper extends Helper {
 			});
 	}
 	
-	visitPage(url : string) : Promise<boolean>{
+	async submitElementForm(selector : string) : Promise<boolean>{
 		let browser = this.helpers['WebDriverIO'].browser;
-		return browser.url(url).catch(function(error){
+		return browser.submitForm(selector).catch(function(error){
 				console.log(error);
-				return false;
+				return "Form submission error";
 			});
 	}
 
@@ -62,10 +67,10 @@ export class BrowserHelper extends Helper {
 	getAuthCode(generatedLink : string) : Promise<string>{
 		let browser = this.helpers['WebDriverIO'].browser;
 		return browser.url(generatedLink).then(function(){
-				return browser.setValue("input[@type='email']","omedym-qa@outlook.com");
+				return browser.setValue("//input[@type='email']","omedym-qa@outlook.com");
 			}).then(function(){
 				console.log("A");
-				return browser.click("input[@type='submit']");
+				return browser.click("//input[@type='submit']");
 			}).then(function(){
 				console.log("B");
 				return browser.getURL();

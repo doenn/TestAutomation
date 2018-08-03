@@ -120,6 +120,7 @@ console.log("Val:" + res.header.value);
     }
     generateAuthURL() {
         this.authURL = authHelper.getAuthUrl();
+        return this.authURL;
     }
     getOutlookAuthCode() {
         let browser = new BrowserHelper_js_1.BrowserHelper();
