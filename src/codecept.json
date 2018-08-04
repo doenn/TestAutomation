@@ -18,7 +18,9 @@
     "manageUsersPage": "./pages/ManageUsersPage.js",
     "tenant": "./resources/User.js",
     "Outlook": "./outlook/Outlook.js",
-    "BrowserHelper": "./helpers/BrowserHelper.js"
+    "Email": "./step_definitions/Email.js",
+    "BrowserHelper": "./helpers/BrowserHelper.js",
+    "emailStep": "./steps/Email.js"
   },
   "mocha": {},
   "bootstrap": false,

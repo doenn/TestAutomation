@@ -10,14 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const I = actor();
-const BrowserHelper_js_1 = require("../helpers/BrowserHelper.js");
+const emailStep = require("../steps/Email.js");
 const loginPage = require("../pages/LoginPage.js");
 const topNavBarPage = require("../pages/TopNavBarPage.js");
 const companyProfilePage = require("../pages/CompanyProfilePage.js");
 const websiteParametersPage = require("../pages/WebsiteParametersPage.js");
 const manageUsersPage = require("../pages/ManageUsersPage.js");
 const assert = require("assert");
-const Outlook_js_1 = require("../outlook/Outlook.js");
 Given('the User has a completed Company Profile', () => {
     // Tenant with completed Profile
 });
@@ -136,38 +135,8 @@ When('the User adds a new User as an Admin', () => {
 Then('the new User can edit the Manage Users page as well', () => __awaiter(this, void 0, void 0, function* () {
 }));
 When('the User removes a User from the Manage Users page', () => __awaiter(this, void 0, void 0, function* () {
-    console.log("Nothing");
-    let outlook = new Outlook_js_1.Outlook();
-    //await outlook.getLastEmail()
-    let browser = new BrowserHelper_js_1.BrowserHelper();
-    I.openNewTab(); //switchToNextTab();
-    I.amOnPage(outlook.generateAuthURL());
-    I.fillField("//input[@type='email']", "omedym-qa@outlook.com");
-    I.click("//input[@type='submit']");
-    //I.seeElement("//input[@type='password']");
-    I.waitForElement("//input[@type='password']", 8);
-    I.waitForVisible("//input[@type='password']", 8);
-    I.waitForVisible("//input[@id='idSIButton9']", 8);
-    //I.wait(8);
-    I.fillField("//input[@type='password']", "Omedym123");
-    I.waitForElement("//input[@type='password']", 8);
-    //const authPword = await I.grabTextFrom("//input[@type='password']");
-    I.pressKey('Enter');
-    /*browser.waitFor("//input[@type='password']").then(function(){
-                return browser.submitElementForm("//form");
-            }).catch(function(error){
-                assert(false);
-            });*/
-    //I.click("//input[@type='submit']");
-    I.retry(15).dontSeeElement("//input[@type='password']");
-    I.retry(15).dontSeeElement("//form");
-    //I.retry(15).seeInCurrentUrl("localhost:3000");//"https://login");
-    //I.waitInUrl("localhost:3000");
-    let authURL = yield I.grabCurrentUrl();
-    console.log(authURL);
-    let codePattern = /code\=(.*)/;
-    outlook.code = authURL.match(codePattern);
-    console.log(outlook.code);
+    emailStep.authenticate();
+    //
 }));
 Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
 }));

@@ -157,7 +157,7 @@ let browser = new BrowserHelper();
 
 
 
-this.accessToken = await authHelper.getTokenFromCode("Ma65becee-64fe-9825-07fa-626835016e6c");//Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
+this.accessToken = await authHelper.getTokenFromCode(this.code);//Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
 
 
 this.client = MicrosoftGraph.Client.init({
@@ -175,6 +175,21 @@ this.client
     }).catch((err) => {
         console.log(err);
     });
+
+this.client
+        .api('/me/mailfolders/inbox/messages')
+        .top(10)
+        .select('subject,from,receivedDateTime,bodyPreview')
+        .orderby('receivedDateTime DESC')
+        .get((err, res) => {
+          if (err) {
+		console.log(err);
+            //callback(null, err);
+          } else {
+	console.log(res);
+            //callback(res.value);
+          }
+        });
 
 	
 /*this.client
