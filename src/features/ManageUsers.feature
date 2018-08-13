@@ -3,13 +3,13 @@ Feature: Manage Users
 	Background:
 		Given the Tenant is logged in
 
-	@Incomplete
+	@InProgress
 	Scenario: Add a user to the company user list and make he/she an admin
 		Given a User is able to edit the Manage Users page
 		When the User adds a new User as an Admin
 		Then the new User can edit the Manage Users page as well
 
-	@InProgress
+	@Incomplete
 	Scenario: Remove Users
 		Given a User is able to edit the Manage Users page
 		When the User removes a User from the Manage Users page
