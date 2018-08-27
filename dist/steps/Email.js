@@ -47,7 +47,18 @@ module.exports = {
             let codeMatches = authURL.match(codePattern);
             outlook.code = codeMatches[1];
             console.log(outlook.code);
-            yield outlook.getLastEmail();
+            return outlook;
+        });
+    },
+    getTemporaryPassword(outlook) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let email = yield outlook.getLastEmail();
+            console.log("Email: " + email);
+            let tempPasswordPattern = /Temporary\spassword:\s(.+)3\.\sW/;
+            let tempPasswordMatches = email.match(tempPasswordPattern);
+            console.log("Matches: ");
+            console.log(tempPasswordMatches[1]);
+            return tempPasswordMatches[1];
         });
     }
 };

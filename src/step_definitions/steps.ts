@@ -165,6 +165,9 @@ When('the User adds a new User as an Admin', () => {
 });
 
 Then('the new User can edit the Manage Users page as well', async () => {
+	let outlook = await emailStep.authenticate();
+	let tempPassword = await emailStep.getTemporaryPassword(outlook);
+	console.log("Temp");
 	
 });
 

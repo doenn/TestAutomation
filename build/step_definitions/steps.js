@@ -133,6 +133,9 @@ When('the User adds a new User as an Admin', () => {
     manageUsersPage.newAdminUser();
 });
 Then('the new User can edit the Manage Users page as well', () => __awaiter(this, void 0, void 0, function* () {
+    let outlook = yield emailStep.authenticate();
+    let tempPassword = yield emailStep.getTemporaryPassword(outlook);
+    console.log("Temp");
 }));
 When('the User removes a User from the Manage Users page', () => __awaiter(this, void 0, void 0, function* () {
     emailStep.authenticate();

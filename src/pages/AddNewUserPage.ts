@@ -26,9 +26,11 @@ export = {
 		I.fillField(this.lastNameField, "LastAdmin2");
 		I.fillField(this.titleField, "TitleAdmin2");
 		I.fillField(this.phoneField, "1234567890");
-		I.fillField(this.emailField, "omedym-qa+2aaa@outlook.com");
+		I.fillField(this.emailField, "omedym-qa+3aaa@outlook.com");
 		I.selectOption(this.groupDropdown, "Admin");
 		I.click(this.saveButton);
+		I.waitForElement(this.saveButton);				// Wait until refresh, otherwise form closes prematurely
+
 	},
 	
 

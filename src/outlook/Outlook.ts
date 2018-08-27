@@ -161,10 +161,17 @@ this.accessToken = await authHelper.getTokenFromCode(this.code);//Mc45f9fba-3cae
 
 
 this.client = MicrosoftGraph.Client.init({
-		    authProvider: (done) => {
+		
+		    authProvider: (done, err) => {
+			try{
 		        done(null, this.accessToken); //first parameter takes an error if you can't get an access token
-		    }
+		    
+			}catch(err){
+      console.log("Error " + err);
+    }
+	}
 			});
+
 
 this.client
     .api('/me')
@@ -173,24 +180,30 @@ this.client
     .then((res) => {
         console.log(res);
     }).catch((err) => {
-        console.log(err);
+      console.log("Error " +err);
     });
 
-this.client
+let email = await this.client
         .api('/me/mailfolders/inbox/messages')
         .top(10)
         .select('subject,from,receivedDateTime,bodyPreview')
         .orderby('receivedDateTime DESC')
-        .get((err, res) => {
-          if (err) {
-		console.log(err);
+        .get((res) => {
+         // if (err) {
+		//console.log(err);
             //callback(null, err);
-          } else {
-	console.log(res);
+         // } else {
+	console.log("Res: " +res);
+		return res;
             //callback(res.value);
-          }
-        });
+         // }
+        }).catch((err) => {
+        console.log("Error " +err);
+    });
 
+	console.log("Email1: " + email);
+
+return email;
 	
 /*this.client
     .api('/me')

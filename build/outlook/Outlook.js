@@ -134,8 +134,13 @@ console.log("Val:" + res.header.value);
         return __awaiter(this, void 0, void 0, function* () {
             this.accessToken = yield authHelper.getTokenFromCode(this.code); //Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
             this.client = MicrosoftGraph.Client.init({
-                authProvider: (done) => {
-                    done(null, this.accessToken); //first parameter takes an error if you can't get an access token
+                authProvider: (done, err) => {
+                    try {
+                        done(null, this.accessToken); //first parameter takes an error if you can't get an access token
+                    }
+                    catch (err) {
+                        console.log("Error " + err);
+                    }
                 }
             });
             this.client
@@ -145,23 +150,27 @@ console.log("Val:" + res.header.value);
                 .then((res) => {
                 console.log(res);
             }).catch((err) => {
-                console.log(err);
+                console.log("Error " + err);
             });
-            this.client
+            let email = yield this.client
                 .api('/me/mailfolders/inbox/messages')
                 .top(10)
                 .select('subject,from,receivedDateTime,bodyPreview')
                 .orderby('receivedDateTime DESC')
-                .get((err, res) => {
-                if (err) {
-                    console.log(err);
-                    //callback(null, err);
-                }
-                else {
-                    console.log(res);
-                    //callback(res.value);
-                }
+                .get((res) => {
+                // if (err) {
+                //console.log(err);
+                //callback(null, err);
+                // } else {
+                console.log("Res: " + res);
+                return res;
+                //callback(res.value);
+                // }
+            }).catch((err) => {
+                console.log("Error " + err);
             });
+            console.log("Email1: " + email);
+            return email;
             /*this.client
                 .api('/me')
                 .select("displayName")
