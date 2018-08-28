@@ -135,10 +135,10 @@ console.log("Val:" + res.header.value);
             this.accessToken = yield authHelper.getTokenFromCode(this.code); //Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
             this.client = MicrosoftGraph.Client.init({
                 authProvider: (done, err) => {
-                    try {
-                        done(null, this.accessToken); //first parameter takes an error if you can't get an access token
+                    if (done) {
+                        done(null, this.accessToken); //first parameter takes an error if you can't get an access token		    
                     }
-                    catch (err) {
+                    else {
                         console.log("Error " + err);
                     }
                 }
@@ -157,18 +157,19 @@ console.log("Val:" + res.header.value);
                 .top(10)
                 .select('subject,from,receivedDateTime,bodyPreview')
                 .orderby('receivedDateTime DESC')
-                .get((res) => {
-                // if (err) {
-                //console.log(err);
-                //callback(null, err);
-                // } else {
-                console.log("Res: " + res);
-                return res;
-                //callback(res.value);
-                // }
-            }).catch((err) => {
-                console.log("Error " + err);
-            });
+                .get((res, err) => {
+                if (err) {
+                    console.log(err);
+                    //callback(null, err);
+                }
+                else {
+                    console.log("Res: " + res);
+                    return res;
+                    //callback(res.value);
+                }
+            }); //.catch((err) => {
+            //console.log("Error " +err);
+            //});
             console.log("Email1: " + email);
             return email;
             /*this.client
