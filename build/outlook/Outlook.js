@@ -148,6 +148,7 @@ console.log("Val:" + res.header.value);
                 .select("displayName")
                 .get()
                 .then((res) => {
+                console.log("Res1: ");
                 console.log(res);
             }).catch((err) => {
                 console.log("Error " + err);
@@ -157,17 +158,20 @@ console.log("Val:" + res.header.value);
                 .top(10)
                 .select('subject,from,receivedDateTime,bodyPreview')
                 .orderby('receivedDateTime DESC')
-                .get((res, err) => {
-                if (err) {
-                    console.log(err);
-                    //callback(null, err);
-                }
-                else {
-                    console.log("Res: " + res);
-                    return res;
-                    //callback(res.value);
-                }
-            }); //.catch((err) => {
+                .get(); /*(res, err) => {
+              if (res) {
+            console.log("Res3: ");
+            console.log(res);
+            return res;
+                //callback(null, err);
+             } else {
+            console.log("Err2: ");
+            console.log(err);
+                //callback(res.value);
+              }
+            });
+    */
+            //.catch((err) => {
             //console.log("Error " +err);
             //});
             console.log("Email1: " + email);

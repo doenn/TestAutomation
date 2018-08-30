@@ -178,7 +178,8 @@ this.client
     .select("displayName")
     .get()
     .then((res) => {
-        console.log(res);
+        console.log("Res1: ");
+	console.log(res);
     }).catch((err) => {
       console.log("Error " +err);
     });
@@ -188,16 +189,20 @@ let email = await this.client
         .top(10)
         .select('subject,from,receivedDateTime,bodyPreview')
         .orderby('receivedDateTime DESC')
-        .get((res, err) => {
-          if (err) {
-		console.log(err);
+        .get();/*(res, err) => {
+          if (res) {
+		console.log("Res3: ");
+		console.log(res);
+		return res;
             //callback(null, err);
          } else {
-	console.log("Res: " +res);
-		return res;
+		console.log("Err2: ");
+		console.log(err);
             //callback(res.value);
           }
-        });//.catch((err) => {
+        });
+*/
+//.catch((err) => {
         //console.log("Error " +err);
     //});
 

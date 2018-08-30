@@ -55,10 +55,11 @@ export = {
 	},
 	
 	async getTemporaryPassword(outlook : Outlook){
-		let email = await outlook.getLastEmail();
-		console.log("Email: " + email);
+		let emailMsg = await outlook.getLastEmail();		// Email msg is obj not string
+		console.log("Email msg: ");
+		console.log(emailMsg);
 		let tempPasswordPattern = /Temporary\spassword:\s(.+)3\.\sW/;
-		let tempPasswordMatches = email.match(tempPasswordPattern);
+		let tempPasswordMatches = emailMsg.match(tempPasswordPattern);
 		console.log("Matches: ");
 		console.log(tempPasswordMatches[1]);
 		return tempPasswordMatches[1];
