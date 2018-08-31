@@ -52,11 +52,11 @@ module.exports = {
     },
     getTemporaryPassword(outlook) {
         return __awaiter(this, void 0, void 0, function* () {
-            let emailMsg = yield outlook.getLastEmail();
+            let emailMsg = yield outlook.getLastEmail(); // Email msg is obj not string
             console.log("Email msg: ");
-            console.log(emailMsg);
+            console.log(emailMsg.value.bodyPreview);
             let tempPasswordPattern = /Temporary\spassword:\s(.+)3\.\sW/;
-            let tempPasswordMatches = emailMsg.match(tempPasswordPattern);
+            let tempPasswordMatches = emailMsg.value.body.match(tempPasswordPattern);
             console.log("Matches: ");
             console.log(tempPasswordMatches[1]);
             return tempPasswordMatches[1];

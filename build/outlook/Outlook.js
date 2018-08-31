@@ -156,7 +156,7 @@ console.log("Val:" + res.header.value);
             let email = yield this.client
                 .api('/me/mailfolders/inbox/messages')
                 .top(10)
-                .select('subject,from,receivedDateTime,bodyPreview')
+                .select('subject,from,receivedDateTime,bodyPreview,body')
                 .orderby('receivedDateTime DESC')
                 .get(); /*(res, err) => {
               if (res) {
