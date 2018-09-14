@@ -11,6 +11,7 @@ let assert = require('assert');
 export = {
 	manageUsersHeading: "//h3[text()[contains(.,'Manage Users')]]",
 	addUserButton: "//a[@class='btn button_filled add-user-btn']",
+	userActionsDropdown: "//a[@data-toggle='button']",
 	loaded(){
 		I.waitForElement(this.manageUsersHeading,20);
 	},
@@ -18,6 +19,10 @@ export = {
 		I.click(this.addUserButton);
 		addNewUserPage.loaded();
 		addNewUserPage.submitNewAdmin();
+	},
+	removeAdminUser(){
+		I.click(this.userActionsDropdown);
+
 	},
 	
 	
