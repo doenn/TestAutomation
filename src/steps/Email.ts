@@ -56,12 +56,27 @@ export = {
 	
 	async getTemporaryPassword(outlook : Outlook){
 		let emailMsg = await outlook.getLastEmail();		// Email msg is obj not string
-		console.log("Email msg: ");
-		console.log(emailMsg.value.bodyPreview);
-		let tempPasswordPattern = /Temporary\spassword:\s(.+)3\.\sW/;
-		let tempPasswordMatches = emailMsg.value.body.match(tempPasswordPattern);
-		console.log("Matches: ");
-		console.log(tempPasswordMatches[1]);
+		//console.log("Email msg: ");
+		//console.log("Email msg8: "+emailMsg);
+		//console.log(emailMsg);
+		//console.log("Email msg9: ");
+		//console.log(emailMsg.value[0].id);
+		let tempPasswordPattern = /Temporary\spassword:\s(.+)<br/;	// Temporary password: idJnkr<br>
+		var tempPasswordMatches;
+		for (var ind=0;ind < emailMsg.value.length;ind++){
+		//console.log("Mat1: ");
+tempPasswordMatches = emailMsg.value[ind].body.content.match(tempPasswordPattern);
+//console.log("Mat "+  emailMsg.value[1].body.content);
+//console.log("Mat2 "+  emailMsg.value[0].body.content.value);
+			if (tempPasswordMatches){
+				break;
+			}
+		}
+		//console.log("Matches: ");
+		console.log("Temporary password: " +tempPasswordMatches[1]);
+		
+
+
 		return tempPasswordMatches[1];
 	}
 

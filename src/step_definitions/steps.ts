@@ -167,7 +167,13 @@ When('the User adds a new User as an Admin', () => {
 Then('the new User can edit the Manage Users page as well', async () => {
 	let outlook = await emailStep.authenticate();
 	let tempPassword = await emailStep.getTemporaryPassword(outlook);
-	console.log("Temp");
+	session('NewAdmin', () => {
+		loginPage.loginAs("omedym-qa+3aaa@outlook.com",tempPassword);
+		loginPage.changePassword("Omedym123");
+		topNavBarPage.visitManageUsers();
+		manageUsersPage.loaded();
+	});
+
 	
 });
 
