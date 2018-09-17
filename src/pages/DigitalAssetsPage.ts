@@ -15,6 +15,9 @@ export = {
 	getAssetRowSelector(rowIndex : number) : string{
 		return "//tbody//tr["+(rowIndex+1)+"]";		// Row index is 1 based
 	},
+	getRowActionMenu(assetName : string){
+		return "//tr//td[text()[contains(.,'"+assetName+"')]]//parent::tr//a";
+	},
 	uploadForm: {
 		file: "//input[@id='input-file-upload']",
 		title : "//div//input[@name='name']",
