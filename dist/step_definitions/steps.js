@@ -138,8 +138,9 @@ Then('the new User can edit the Manage Users page as well', () => __awaiter(this
     session('NewAdmin', () => {
         loginPage.loginAs("omedym-qa+3aaa@outlook.com", tempPassword);
         loginPage.changePassword("Omedym123");
+        topNavBarPage.visitManageUsers();
+        manageUsersPage.loaded();
     });
-    console.log("Temp");
 }));
 When('the User removes a User from the Manage Users page', () => __awaiter(this, void 0, void 0, function* () {
     emailStep.authenticate();
