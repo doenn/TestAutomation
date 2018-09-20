@@ -143,10 +143,15 @@ Then('the new User can edit the Manage Users page as well', () => __awaiter(this
     });
 }));
 When('the User removes a User from the Manage Users page', () => __awaiter(this, void 0, void 0, function* () {
-    emailStep.authenticate();
-    //
+    topNavBarPage.visitManageUsers();
+    manageUsersPage.loaded();
+    manageUsersPage.removeAdminUser("omedym-qa+3aaa@outlook.com");
 }));
 Then('the new User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
+    session('RemovedAdmin', () => {
+        loginPage.loginAs("omedym-qa+3aaa@outlook.com", "Omedym123");
+        I.seeElement(loginPage.incorrectLoginCredentialsMsg);
+    });
 }));
 When('the User sends a password reset to another User', () => {
 });

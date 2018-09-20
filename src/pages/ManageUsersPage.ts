@@ -13,6 +13,7 @@ export = {
 	addUserButton: "//a[@class='btn button_filled add-user-btn']",
 	userActionsDropdown: "//td//a[@data-toggle='dropdown']",
 	deleteUserButton: "//li//a[@class='btn-delete-user']",
+	confirmDeletionButton: "//button[text()[contains(.,'OK')]]",
 	loaded(){
 		I.waitForElement(this.manageUsersHeading,20);
 	},
@@ -21,11 +22,11 @@ export = {
 		addNewUserPage.loaded();
 		addNewUserPage.submitNewAdmin();
 	},
-	removeAdminUser(){
-
-//tr//td[text()[contains(.,'omedym-qa+3aaa@outlook.com')]]//parent::tr//td//a[@data-toggle='dropdown']"
-		I.click(this.userActionsDropdown);
+	removeAdminUser(userName : string){
+		let actionsDropdown : string = "//tr//td[text()[contains(.,'" +userName+"')]]//parent::tr//td//a[@data-toggle='dropdown']";
+		I.click(actionsDropdown);
 		I.click(this.deleteUserButton);
+		I.click(this.confirmDeletionButton);
 	},
 	
 	

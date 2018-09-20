@@ -6,6 +6,7 @@ export = {
 	passwordField: "//input[@name='password']",
 	newPasswordField: "//input[@placeholder='New password']",
 	confirmPasswordField: "//input[@name='password_confirmation']",
+	incorrectLoginCredentialsMsg: "//ul//li[text()[contains(.,'Wrong username or password or your account is not active!')]]",
 	login(){
 		const tenant = require('../resources/User.js');
 		I.amOnPage('/');

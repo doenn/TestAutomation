@@ -178,12 +178,17 @@ Then('the new User can edit the Manage Users page as well', async () => {
 });
 
 When('the User removes a User from the Manage Users page', async () => {
-	emailStep.authenticate();
-   //
+	topNavBarPage.visitManageUsers();
+	manageUsersPage.loaded();
+   	manageUsersPage.removeAdminUser("omedym-qa+3aaa@outlook.com");
+	
 });
 
 Then('the new User can no longer login to the Company site', async () => {
-	
+	session('RemovedAdmin', () => {
+		loginPage.loginAs("omedym-qa+3aaa@outlook.com","Omedym123");
+		I.seeElement(loginPage.incorrectLoginCredentialsMsg);
+	});
 });
 
 When('the User sends a password reset to another User', () => {
