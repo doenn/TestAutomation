@@ -9,7 +9,7 @@ Feature: Manage Users
 		When the User adds a new User as an Admin
 		Then the new User can edit the Manage Users page as well
 
-	@InProgress
+	@Full
 	Scenario: Remove Users
 		Given a User is able to edit the Manage Users page
 		When the User removes a User from the Manage Users page
