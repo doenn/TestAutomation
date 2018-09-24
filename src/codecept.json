@@ -16,6 +16,7 @@
     "topNavBarPage": "./pages/TopNavBarPage.js",
     "companyProfilePage": "./pages/CompanyProfilePage.js",
     "manageUsersPage": "./pages/ManageUsersPage.js",
+    "editUserPage": "./pages/EditUserPage.js",
     "tenant": "./resources/User.js",
     "Outlook": "./outlook/Outlook.js",
     "Email": "./step_definitions/Email.js",

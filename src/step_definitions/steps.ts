@@ -11,6 +11,7 @@ import topNavBarPage = require('../pages/TopNavBarPage.js');
 import companyProfilePage = require('../pages/CompanyProfilePage.js');
 import websiteParametersPage = require('../pages/WebsiteParametersPage.js');
 import manageUsersPage = require('../pages/ManageUsersPage.js');
+import editUserPage = require('../pages/EditUserPage.js');
 import assert = require('assert');
 import {Outlook} from "../outlook/Outlook.js";
 
@@ -204,7 +205,10 @@ Then('that other user receives a password reset email', async () => {
 });
 
 When('the User deactivates a User from the Manage Users page', () => {
-
+	topNavBarPage.visitManageUsers();
+	manageUsersPage.loaded();
+	manageUsersPage.editAdminUser("omedym-qa+3aaa@outlook.com");
+	I.click(editUserPage.activateCheckbox);
 });
 
 Then('the deactivated User can no longer login to the Company site', async () => {
