@@ -16,6 +16,7 @@ const topNavBarPage = require("../pages/TopNavBarPage.js");
 const companyProfilePage = require("../pages/CompanyProfilePage.js");
 const websiteParametersPage = require("../pages/WebsiteParametersPage.js");
 const manageUsersPage = require("../pages/ManageUsersPage.js");
+const editUserPage = require("../pages/EditUserPage.js");
 const assert = require("assert");
 Given('the User has a completed Company Profile', () => {
     // Tenant with completed Profile
@@ -160,8 +161,17 @@ When('that other user must change their password upon login', () => {
 Then('that other user receives a password reset email', () => __awaiter(this, void 0, void 0, function* () {
 }));
 When('the User deactivates a User from the Manage Users page', () => {
+    topNavBarPage.visitManageUsers();
+    manageUsersPage.loaded();
+    manageUsersPage.editAdminUser("omedym-qa+3aaa@outlook.com");
+    I.click(editUserPage.activateCheckbox);
+    I.click(editUserPage.saveButton);
 });
 Then('the deactivated User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
+    session('RemovedAdmin', () => {
+        loginPage.loginAs("omedym-qa+3aaa@outlook.com", "Omedym123");
+        I.seeElement(loginPage.incorrectLoginCredentialsMsg);
+    });
 }));
 When('the User activates a User from the Manage Users page', () => {
 });
