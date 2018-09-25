@@ -22,7 +22,7 @@ Feature: Manage Users
 		Then that other user must change their password upon login
 		And that other user receives a password reset email
 
-	@Incomplete
+	@Full
 	Scenario: Deactivate User
 		Given a User is able to edit the Manage Users page
 		When the User deactivates a User from the Manage Users page

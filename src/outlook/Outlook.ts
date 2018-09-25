@@ -17,20 +17,10 @@ export class Outlook {
 	authURL : string;
 	code : string;
 	constructor(){
-		//this.authorize();
-
-
-/*this.accessToken = authHelper.getTokenFromCode("Mc45f9fba-3cae-70ec-1546-3994e75bbbfa");
-
-
-this.client = MicrosoftGraph.Client.init({
-		    authProvider: (done) => {
-		        done(null, this.accessToken); //first parameter takes an error if you can't get an access token
-		    }
-			});
-*/		
 		
-		
+
+
+
 	}
 	async authorize(){
 

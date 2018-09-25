@@ -209,10 +209,14 @@ When('the User deactivates a User from the Manage Users page', () => {
 	manageUsersPage.loaded();
 	manageUsersPage.editAdminUser("omedym-qa+3aaa@outlook.com");
 	I.click(editUserPage.activateCheckbox);
+	I.click(editUserPage.saveButton);
 });
 
 Then('the deactivated User can no longer login to the Company site', async () => {
-	
+	session('RemovedAdmin', () => {
+		loginPage.loginAs("omedym-qa+3aaa@outlook.com","Omedym123");
+		I.seeElement(loginPage.incorrectLoginCredentialsMsg);
+	});
 });
 
 When('the User activates a User from the Manage Users page', () => {
