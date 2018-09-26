@@ -28,7 +28,7 @@ Feature: Manage Users
 		When the User deactivates a User from the Manage Users page
 		Then the deactivated User can no longer login to the Company site
 
-	@Incomplete
+	@Full
 	Scenario: Activate User
 		Given a User is able to edit the Manage Users page
 		When the User activates a User from the Manage Users page

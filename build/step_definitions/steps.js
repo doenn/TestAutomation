@@ -164,7 +164,7 @@ When('the User deactivates a User from the Manage Users page', () => {
     topNavBarPage.visitManageUsers();
     manageUsersPage.loaded();
     manageUsersPage.editAdminUser("omedym-qa+3aaa@outlook.com");
-    I.click(editUserPage.activateCheckbox);
+    editUserPage.deactivateUser();
     I.click(editUserPage.saveButton);
 });
 Then('the deactivated User can no longer login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
@@ -174,6 +174,16 @@ Then('the deactivated User can no longer login to the Company site', () => __awa
     });
 }));
 When('the User activates a User from the Manage Users page', () => {
+    topNavBarPage.visitManageUsers();
+    manageUsersPage.loaded();
+    manageUsersPage.editAdminUser("omedym-qa+3aaa@outlook.com");
+    editUserPage.activateUser();
+    I.click(editUserPage.saveButton);
 });
 Then('the deactivated User can login to the Company site', () => __awaiter(this, void 0, void 0, function* () {
+    session('DeactivatedAdmin', () => {
+        loginPage.loginAs("omedym-qa+3aaa@outlook.com", "Omedym123");
+        topNavBarPage.visitManageUsers();
+        manageUsersPage.loaded();
+    });
 }));

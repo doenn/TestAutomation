@@ -14,7 +14,19 @@ module.exports = {
     saveButton: "//button[text()='Save']",
     resetPasswordButton: "//button[@name='reset-pw']",
     activateCheckbox: "//input[@id='activate']",
+    activateCheckboxChecked: "//div[@class[contains(.,' checked')]]//input[@id='activate']",
+    activateCheckboxUnchecked: "//div[@class[not(contains(.,' checked'))]]//input[@id='activate']",
     loaded() {
         I.waitForElement(this.editUserHeading, 20);
+    },
+    activateUser() {
+        I.waitForElement(this.activateCheckboxUnchecked, 20);
+        I.click(this.activateCheckbox);
+        I.waitForElement(this.activateCheckboxChecked, 20);
+    },
+    deactivateUser() {
+        I.waitForElement(this.activateCheckboxChecked, 20);
+        I.click(this.activateCheckbox);
+        I.waitForElement(this.activateCheckboxUnchecked, 20);
     },
 };
