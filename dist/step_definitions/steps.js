@@ -187,3 +187,16 @@ Then('the deactivated User can login to the Company site', () => __awaiter(this,
         manageUsersPage.loaded();
     });
 }));
+Given('Given a User has changed Digital Asset tags', () => {
+    //
+});
+/*
+When('a Prospect accesses a link after the Duration passes', () => {
+    //
+});
+
+Then('the Link shows a link expired page', () => {
+    //
+});
+
+*/

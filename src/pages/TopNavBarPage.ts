@@ -48,5 +48,14 @@ export = {
 			}).catch(function(error){
 				assert(false);
 			});
-	}
+	},
+	visitDigitalAssets(){
+		let browser = new BrowserHelper();
+		let topNavBarPage = this;
+		browser.waitFor(topNavBarPage.digitalAssetsLink).then(function(){		// Considers waiting for page load spinner
+				return browser.clickAfter(topNavBarPage.digitalAssetsLink);
+			}).catch(function(error){
+				assert(false);
+			});	
+	},
 }

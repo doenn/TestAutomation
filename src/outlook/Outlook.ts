@@ -26,21 +26,21 @@ export class Outlook {
 
 
 
-console.log("L: " + authHelper.getAuthUrl());
+//console.log("L: " + authHelper.getAuthUrl());
 		var tokenRequest = request({url: authHelper.getAuthUrl(), method: "get", followAllRedirects: true}, function(e, response){
 			console.log("L3: " + tokenRequest.uri.href);
 			console.log("L4: " + response.request.href);
 
-console.log("L: " + response.request.uri.query);
+//console.log("L: " + response.request.uri.query);
 
-console.log("L: " + response.request.uri.query.code);
+//console.log("L: " + response.request.uri.query.code);
 
 			var redirectRequest = request({url: response.request.uri.href, method: "POST"}, function(error, response, html) {
 
-console.log("L2: " + redirectRequest.uri.href);
-			console.log("L22: " + response.request.href);
+//console.log("L2: " + redirectRequest.uri.href);
+			//console.log("L22: " + response.request.href);
         });
-console.log("L2o: " + redirectRequest.uri.href);
+//console.log("L2o: " + redirectRequest.uri.href);
 
 	});
 

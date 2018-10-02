@@ -236,6 +236,17 @@ Then('the deactivated User can login to the Company site', async () => {
 });
 
 
+Given('a User has changed Digital Asset tags', () => {
+	topNavBarPage.visitDigitalAssets();
+});
+
+When('the User tests Prospect search with the new Asset tags', () => {
+	//
+});
+
+Then('the searched Digital Assets are shown as results', () => {
+	//
+});
 
 
 
