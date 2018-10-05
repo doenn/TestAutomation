@@ -13,6 +13,8 @@ export = {
 	questionField: "//input[@name='keyword']",
 	recommendedTab: "//ul[@class='nav nav-tabs']//li//a[@id='dod_recommended_header']",
 	searchResultsTab: "//ul[@class='nav nav-tabs']//li//a[@id='dod_searchresults_header']",
+	tagField: "//input[@name='keyword']",
+	pageField: "//input[@name='page']",
 	trendingTab: "//ul[@class='nav nav-tabs']//li//a[@id='dod_trending_header']",
 /*loaded(){
 		I.waitForElement(this.prospectListHeading,20);
